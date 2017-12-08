@@ -14,7 +14,9 @@ class PostsController extends Controller
      */
     public function index()
     {
+        $posts = Post::all();
 
+        return response(['data' => $posts], 200);
     }
 
     /**

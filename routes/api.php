@@ -18,3 +18,4 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::resource('posts', 'PostsController');
+//Route::get('/posts', 'PostsController@index');
