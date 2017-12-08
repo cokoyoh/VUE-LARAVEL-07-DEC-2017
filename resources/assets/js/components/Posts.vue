@@ -7,6 +7,8 @@
                 <h4>{{ post.title }}</h4>
 
                 <div class="body">{{ post.body }}</div>
+                <br>
+                <hr>
             </article>
 
         </div>
@@ -23,8 +25,7 @@
         mounted()
         {
             console.log('Component mounted.');
-        },
-        created(){
+
             this.fetchPosts();
         },
         methods:{
