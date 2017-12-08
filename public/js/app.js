@@ -42864,6 +42864,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -42900,26 +42903,30 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "posts" }, [
-    _c(
-      "div",
-      { staticClass: "container" },
-      [
-        _c("h2", [_vm._v("Posts Here")]),
-        _vm._v(" "),
-        _vm._l(_vm.posts, function(post) {
-          return _c("article", [
-            _c("h4", [_vm._v(_vm._s(post.title))]),
-            _vm._v(" "),
-            _c("div", { staticClass: "body" }, [_vm._v(_vm._s(post.body))]),
-            _vm._v(" "),
-            _c("br"),
-            _vm._v(" "),
-            _c("hr")
-          ])
-        })
-      ],
-      2
-    )
+    _c("div", { staticClass: "container-fluid" }, [
+      _c(
+        "div",
+        { staticClass: "col-md-12 col-lg-12" },
+        [
+          _c("h2", [_vm._v("Posts Here")]),
+          _vm._v(" "),
+          _vm._l(_vm.posts, function(post) {
+            return _c("article", [
+              _c("h4", [_vm._v(_vm._s(post.title))]),
+              _vm._v(" "),
+              _c("div", { staticClass: "body" }, [_vm._v(_vm._s(post.body))]),
+              _vm._v(" "),
+              _c("br"),
+              _vm._v(" "),
+              _c("small", [_vm._v("Posted at " + _vm._s(post.created_at))]),
+              _vm._v(" "),
+              _c("hr")
+            ])
+          })
+        ],
+        2
+      )
+    ])
   ])
 }
 var staticRenderFns = []
@@ -43027,10 +43034,35 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
-        return {};
+        return {
+            post_data: {
+                title: '',
+                body: ''
+            }
+
+        };
+    },
+
+    methods: {
+        onSubmitForm: function onSubmitForm() {
+            console.log(this.post_data);
+
+            var data = this.post_data;
+
+            axios.post('api/posts', data).then(function (response) {
+                console.log(response);
+
+                if (response.status === 200) {
+
+                    alert(response.data.message);
+                }
+            });
+        }
     }
 });
 
@@ -43042,18 +43074,20 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0, false, false)
-}
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "new-form", attrs: { id: "new-form" } }, [
-      _c("div", { staticClass: "container" }, [
+  return _c("div", { staticClass: "new-form", attrs: { id: "new-form" } }, [
+    _c("div", { staticClass: "container-fluid" }, [
+      _c("div", { staticClass: "col-md-12 col-lg-12" }, [
         _c(
           "form",
-          { staticClass: "form-horizontal", attrs: { action: "POST" } },
+          {
+            attrs: { action: "POST" },
+            on: {
+              submit: function($event) {
+                $event.preventDefault()
+                _vm.onSubmitForm($event)
+              }
+            }
+          },
           [
             _c("fieldset", [
               _c("legend", [_vm._v("Add New Post")]),
@@ -43062,13 +43096,30 @@ var staticRenderFns = [
                 _c("label", [_vm._v("Post Title")]),
                 _vm._v(" "),
                 _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.post_data.title,
+                      expression: "post_data.title"
+                    }
+                  ],
                   staticClass: "form-control",
                   attrs: {
                     type: "text",
                     id: "title",
                     name: "title",
                     "aria-describedby": "emailHelp",
-                    placeholder: "Blog Title"
+                    placeholder: "Post Title"
+                  },
+                  domProps: { value: _vm.post_data.title },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.post_data, "title", $event.target.value)
+                    }
                   }
                 })
               ]),
@@ -43077,30 +43128,55 @@ var staticRenderFns = [
                 _c("label", [_vm._v("Body")]),
                 _vm._v(" "),
                 _c("textarea", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.post_data.body,
+                      expression: "post_data.body"
+                    }
+                  ],
                   staticClass: "form-control",
                   attrs: {
                     id: "body",
                     name: "body",
                     rows: "8",
                     placeholder: "What's on your mind?"
+                  },
+                  domProps: { value: _vm.post_data.body },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.post_data, "body", $event.target.value)
+                    }
                   }
                 })
               ]),
               _vm._v(" "),
-              _c("div", { staticClass: "form-group" }, [
-                _c(
-                  "button",
-                  {
-                    staticClass: "btn btn-success",
-                    attrs: { type: "submit", value: "submit" }
-                  },
-                  [_vm._v("Add")]
-                )
-              ])
+              _vm._m(0, false, false)
             ])
           ]
         )
       ])
+    ])
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "form-group" }, [
+      _c(
+        "button",
+        {
+          staticClass: "btn btn-success",
+          attrs: { type: "submit", value: "submit" }
+        },
+        [_vm._v("Add Post")]
+      )
     ])
   }
 ]

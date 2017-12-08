@@ -1,16 +1,19 @@
 <template>
     <div class="posts">
-        <div class="container">
-            <h2>Posts Here</h2>
+        <div class="container-fluid">
+           <div class="col-md-12 col-lg-12">
+               <h2>Posts Here</h2>
 
-            <article v-for="post in posts">
-                <h4>{{ post.title }}</h4>
+               <article v-for="post in posts">
+                   <h4>{{ post.title }}</h4>
 
-                <div class="body">{{ post.body }}</div>
-                <br>
-                <hr>
-            </article>
+                   <div class="body">{{ post.body }}</div>
+                   <br>
+                   <small>Posted at {{post.created_at}}</small>
+                   <hr>
+               </article>
 
+           </div>
         </div>
     </div>
 </template>

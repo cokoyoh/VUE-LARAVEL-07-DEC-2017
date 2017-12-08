@@ -14,7 +14,7 @@ class PostsController extends Controller
      */
     public function index()
     {
-        $posts = Post::all();
+        $posts = Post::orderBy('id', 'desc')->get();
 
         return response(['data' => $posts], 200);
     }
@@ -38,7 +38,7 @@ class PostsController extends Controller
     {
         Post::create(request()->all());
 
-        return response(['message' => 'Post created'], 200);
+        return response(['message' => 'Post created successfully'], 200);
     }
 
     /**

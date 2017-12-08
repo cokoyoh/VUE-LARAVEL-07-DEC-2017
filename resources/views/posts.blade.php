@@ -9,19 +9,21 @@
     <title>Posts Page</title>
 </head>
 <body>
-    <div class="app" id="app">
-        <div class="container">
-           <div class="row">
-               <div class="col-md-4 col-lg-4">
-                   <new-post></new-post>
-               </div>
+    <div class = "app" id = "app">
+        <div class = "container">
+            <div class = "row">
+                <div class="col-md-4 col-lg-4">
+                    <new-post></new-post>
+                </div>
 
-               <div class="col-md-8 col-lg-8">
-                   <posts></posts>
-               </div>
-           </div>
+                <div class="col-md-8 col-lg-8">
+                    <posts></posts>
+                </div>
+            </div>
         </div>
     </div>
-    <script src="/js/app.js"></script>
+    </div>
+    </div>
+    <script src = "/js/app.js"></script>
 </body>
 </html>
