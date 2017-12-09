@@ -46,7 +46,7 @@
                 axios.post('api/posts', data)
 
                     .then(response => {
-                        console.log('posts' , response)
+                        console.log( response);
 
                       if(response.status === 200){
 
